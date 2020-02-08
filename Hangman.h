@@ -10,18 +10,19 @@ using namespace std;
 class Hangman
 {
 public:
-  string randomWord; // word that the user has to guess
   string userInput; // the letters or word the user has entered
-  Hangman(string);
+
+  Hangman(string); // initializer. Just intiializes  randomWord with whatever was chosen.
   void printInstructions(); // show user how he will play
+  void startGame(); // Starts a new game
+
 private:
-  void clearScreen();
-  bool userDidSkipInstruction();
-
-
-
-
-
+  string randomWord; // word that the user has to guess
+  void clearScreen(); // clears the screen.
+  bool userDidSkipInstruction(); // checks if the user skipped instructions
+  string guessedLetters; // this is where the correct letters will be stored
+  void getCorrectUserInput();
+  bool userInputIsAllLetters(string);
 
 };
 

@@ -1,5 +1,10 @@
+// TODO:
+// This class should throw an error if the randomWord contains spaces
+
+
 #include "Hangman.h"
 #include <iomanip>
+#include <ctype.h>
 using namespace std;
 
 Hangman::Hangman(string randomWord) {
@@ -70,4 +75,60 @@ bool Hangman::userDidSkipInstruction() {
   }
  return false;
 
+}
+
+void Hangman:: startGame() {
+
+  // this will include a do a while loop
+  printInstructions();
+  clearScreen();
+  // Set guessedLetters to display _ _ _ _ _
+
+  // getCorrectUserInput();
+
+  // end game settings
+  // do while - loop to check if the user will play again
+
+  cout << "Would you like to play again or quit?" << endl;
+  cout << "enter"
+
+
+}
+
+
+// code made by Wardah
+void Hangman::getCorrectUserInput() {
+
+  string input;
+  int counter = 0;
+  do {
+    cout << "Enter a letter or a word" << endl;
+    getline(cin, input);
+
+    // check if it is empty
+    if (input.length() == 0) { continue; }
+
+    // makes sure that all input is filled with alphabets
+    if (!userInputIsAllLetters(input)) {continue;}
+
+
+
+    // if it makes it down here it means that the userInput is correct
+    counter = 1;
+  }while (counter != 1);
+
+  // initialize userInput with input
+  userInput = input;
+
+}
+
+// Checking that the user Entered an array of letters
+// not numbers should be accepted
+bool Hangman::userInputIsAllLetters(string _userInput) {
+  for (int i = 0; i < _userInput.length(); i++) {
+    if (!isalpha(_userInput[i])) {
+      return false;
+    }
+  }
+  return true;
 }
