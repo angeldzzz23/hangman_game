@@ -90,7 +90,8 @@ void Hangman:: startGame() {
   // do while - loop to check if the user will play again
 
   cout << "Would you like to play again or quit?" << endl;
-  cout << "enter"
+  cout << "enter q to quit" << endl
+  cout << "Enter p to play again" << endl;
 
 
 }
