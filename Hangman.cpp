@@ -98,11 +98,11 @@ void Hangman:: startGame() {
     // keeps on asking the user for input till the user
     // has either won or lost
   do {
+    clearScreen();
     printGuessedLetters();
     cout << endl;
     getCorrectUserInput();
     DoAction();
-
 
   } while(gameIsNotOver());
 
@@ -179,54 +179,47 @@ void Hangman::printGuessedLetters() {
 void Hangman::DoAction() {
 if (isAWholeWord()) // UserInput is a whole word
 {
-  cout << "ther user entered a whole word" << endl;
     // Check if UserInput is the randomWordWord
     // if they are equal you have won
     changeScoreBasedOnTheSimilarityOfUserInputAndRandomWord();
 
-} else {
+} else { // the user inputted one letter
   cout << "the user entered a letter" << endl;
-  // the user inputted one letter
-  // check if the letter is in the randomWord
-  // if it is replace the word
-  // if it is not, then it is incorrect
+    // check if the letter is in the randomWord
+    // if it is replace the word
+  if (letterUserInputLetterExistsInRandomWord()) {
+    // update guessed letter
+    updateLetterInUserInputOnGuessedLetters();
+    // checkTheLengh of the word
+
+
+  } else {
+    // if it is not, then update score
+    score += 1;
+  }
 
 }
 
 }
 
 void Hangman::changeScoreBasedOnTheSimilarityOfUserInputAndRandomWord() {
-
-
   if (userInput.length() != randomWord.length()) { score += 1; return;}
 
+  // loops to check if both words are the same
   for (int i = 0; i < userInput.length(); i++)
   {
     if (userInput[i] != randomWord[i]) {
+      score += 1;
       return;
     }
   }
-  cout << "Word has been found" << endl;
+  // if you make it down here, it means that both words are correct
   wordhasNotBeenFound = false;
 
-
-
-
-  // if (userInput == randomWord) {
-  //   cout << "here" << endl;
-  //   cout << userInput << endl;
-  //   cout << randomWord << endl;
-  //   // the user has won
-  //   wordhasNotBeenFound = false;
-  // } else {
-  //   // increase score by one
-  //   score +=1;
-  // }
 }
 
-
-
 bool Hangman::gameIsNotOver() {
+
 
   if (score == 3) {
     return false;
@@ -236,5 +229,31 @@ bool Hangman::gameIsNotOver() {
     return false;
   }
 
+  // if the guessedLetters and randomWord are the same
+  if (guessedLetters == randomWord) {
+    return false;
+  }
+
+
   return true;
+}
+
+bool Hangman::letterUserInputLetterExistsInRandomWord() {
+
+  for (int i = 0; i < randomWord.length(); i ++) {
+      if (userInput[0] == randomWord[i]) {
+        return true;
+      }
+  }
+  return false;
+}
+
+void Hangman::updateLetterInUserInputOnGuessedLetters() {
+
+  for (int i = 0; i < randomWord.length(); i ++) {
+      if (userInput[0] == randomWord[i]) {
+        guessedLetters[i] = userInput[0];
+      }
+  }
+
 }

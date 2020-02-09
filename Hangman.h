@@ -19,7 +19,6 @@ public:
   string guessedLetters; // this is where the correct letters will be stored
   void printGuessedLetters(); // prints guessed letter with a space
 
-
 private:
   string randomWord; // word that the user has to guess
   bool wordhasNotBeenFound;
@@ -31,7 +30,9 @@ private:
   void resetGuessedLetters();
   void DoAction();
   void changeScoreBasedOnTheSimilarityOfUserInputAndRandomWord();
+  bool letterUserInputLetterExistsInRandomWord();
   bool gameIsNotOver();
+  void updateLetterInUserInputOnGuessedLetters();
 
 };
 
