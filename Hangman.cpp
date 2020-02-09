@@ -1,4 +1,5 @@
 // TODO:
+//
 // This class should throw an error if the randomWord contains spaces
 
 
@@ -7,6 +8,7 @@
 #include <ctype.h>
 using namespace std;
 
+// initializer with random word
 Hangman::Hangman(string randomWord) {
   this->randomWord = randomWord;
 }
@@ -61,10 +63,12 @@ void Hangman::printInstructions() {
         }
 }
 
+// clears the screen
 void Hangman::clearScreen() {
   cout << string(100, '\n') << endl;
 }
 
+// checks if the user has skipped an instruction
 bool Hangman::userDidSkipInstruction() {
   string str;
   getline(cin, str);
@@ -77,25 +81,36 @@ bool Hangman::userDidSkipInstruction() {
 
 }
 
+// Starts a new hangman game
 void Hangman:: startGame() {
 
   // this will include a do a while loop
   printInstructions();
   clearScreen();
-  // Set guessedLetters to display _ _ _ _ _
 
-  // getCorrectUserInput();
+  resetGuessedLetters();
+  int counter = 0;
+  do {
+    printGuessedLetters();
+    cout << endl;
+    getCorrectUserInput();
+
+
+
+  } while(counter != 1);
+
+
+
+
 
   // end game settings
   // do while - loop to check if the user will play again
 
-  cout << "Would you like to play again or quit?" << endl;
-  cout << "enter q to quit" << endl
-  cout << "Enter p to play again" << endl;
 
-
+  // cout << "Would you like to play again or quit?" << endl;
+  // cout << "enter q to quit" << endl;
+  // cout << "Enter p to play again" << endl;
 }
-
 
 // code made by Wardah
 void Hangman::getCorrectUserInput() {
@@ -111,8 +126,6 @@ void Hangman::getCorrectUserInput() {
 
     // makes sure that all input is filled with alphabets
     if (!userInputIsAllLetters(input)) {continue;}
-
-
 
     // if it makes it down here it means that the userInput is correct
     counter = 1;
@@ -132,4 +145,23 @@ bool Hangman::userInputIsAllLetters(string _userInput) {
     }
   }
   return true;
+}
+
+//If it is on letter or a whole word
+bool Hangman::isAWholeWord() {
+  return (userInput.length() > 1) ? true : false;
+}
+
+void Hangman::resetGuessedLetters() {
+  guessedLetters.clear();
+  for (int i = 0; i < randomWord.length(); i++) {
+    guessedLetters.append("_");
+  }
+}
+
+void Hangman::printGuessedLetters() {
+  for (int i = 0; i < guessedLetters.length();i++) {
+    cout << guessedLetters[i] << " ";
+  }
+  cout << endl;
 }
