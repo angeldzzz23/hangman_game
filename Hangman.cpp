@@ -11,6 +11,8 @@ using namespace std;
 // initializer with random word
 Hangman::Hangman(string randomWord) {
   this->randomWord = randomWord;
+  this->score = 0;
+  this->wordhasNotBeenFound = true;
 }
 
 // Finish later
@@ -90,21 +92,23 @@ void Hangman:: startGame() {
 
   resetGuessedLetters();
   int counter = 0;
+
+
+    // do while - loop
+    // keeps on asking the user for input till the user
+    // has either won or lost
   do {
     printGuessedLetters();
     cout << endl;
     getCorrectUserInput();
+    DoAction();
 
 
-
-  } while(counter != 1);
-
-
-
+  } while(gameIsNotOver());
 
 
   // end game settings
-  // do while - loop to check if the user will play again
+
 
 
   // cout << "Would you like to play again or quit?" << endl;
@@ -113,6 +117,8 @@ void Hangman:: startGame() {
 }
 
 // code made by Wardah
+// correct input makes sure the user
+// only enters alphabetical letter
 void Hangman::getCorrectUserInput() {
 
   string input;
@@ -129,7 +135,8 @@ void Hangman::getCorrectUserInput() {
 
     // if it makes it down here it means that the userInput is correct
     counter = 1;
-  }while (counter != 1);
+
+  }while (counter == 0);
 
   // initialize userInput with input
   userInput = input;
@@ -152,6 +159,7 @@ bool Hangman::isAWholeWord() {
   return (userInput.length() > 1) ? true : false;
 }
 
+// makes
 void Hangman::resetGuessedLetters() {
   guessedLetters.clear();
   for (int i = 0; i < randomWord.length(); i++) {
@@ -159,9 +167,74 @@ void Hangman::resetGuessedLetters() {
   }
 }
 
+
 void Hangman::printGuessedLetters() {
   for (int i = 0; i < guessedLetters.length();i++) {
     cout << guessedLetters[i] << " ";
   }
   cout << endl;
+}
+
+// Check if the user Entered
+void Hangman::DoAction() {
+if (isAWholeWord()) // UserInput is a whole word
+{
+  cout << "ther user entered a whole word" << endl;
+    // Check if UserInput is the randomWordWord
+    // if they are equal you have won
+    changeScoreBasedOnTheSimilarityOfUserInputAndRandomWord();
+
+} else {
+  cout << "the user entered a letter" << endl;
+  // the user inputted one letter
+  // check if the letter is in the randomWord
+  // if it is replace the word
+  // if it is not, then it is incorrect
+
+}
+
+}
+
+void Hangman::changeScoreBasedOnTheSimilarityOfUserInputAndRandomWord() {
+
+
+  if (userInput.length() != randomWord.length()) { score += 1; return;}
+
+  for (int i = 0; i < userInput.length(); i++)
+  {
+    if (userInput[i] != randomWord[i]) {
+      return;
+    }
+  }
+  cout << "Word has been found" << endl;
+  wordhasNotBeenFound = false;
+
+
+
+
+  // if (userInput == randomWord) {
+  //   cout << "here" << endl;
+  //   cout << userInput << endl;
+  //   cout << randomWord << endl;
+  //   // the user has won
+  //   wordhasNotBeenFound = false;
+  // } else {
+  //   // increase score by one
+  //   score +=1;
+  // }
+}
+
+
+
+bool Hangman::gameIsNotOver() {
+
+  if (score == 3) {
+    return false;
+  }
+
+  if (wordhasNotBeenFound == false) {
+    return false;
+  }
+
+  return true;
 }
