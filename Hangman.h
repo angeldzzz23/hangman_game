@@ -33,6 +33,7 @@ private:
   bool letterUserInputLetterExistsInRandomWord();
   bool gameIsNotOver();
   void updateLetterInUserInputOnGuessedLetters();
+  void displayOutputForWhenGameisOver();
 
 };
 

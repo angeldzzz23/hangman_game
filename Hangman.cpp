@@ -1,8 +1,6 @@
 // TODO:
 //
 // This class should throw an error if the randomWord contains spaces
-
-
 #include "Hangman.h"
 #include <iomanip>
 #include <ctype.h>
@@ -86,14 +84,9 @@ bool Hangman::userDidSkipInstruction() {
 // Starts a new hangman game
 void Hangman:: startGame() {
 
-  // this will include a do a while loop
   printInstructions();
   clearScreen();
-
   resetGuessedLetters();
-  int counter = 0;
-
-
     // do while - loop
     // keeps on asking the user for input till the user
     // has either won or lost
@@ -105,12 +98,10 @@ void Hangman:: startGame() {
     DoAction();
 
   } while(gameIsNotOver());
+  // display if user won or lost
+  displayOutputForWhenGameisOver();
 
-
-  // end game settings
-
-
-
+  // ask if they want to play again
   // cout << "Would you like to play again or quit?" << endl;
   // cout << "enter q to quit" << endl;
   // cout << "Enter p to play again" << endl;
@@ -220,7 +211,6 @@ void Hangman::changeScoreBasedOnTheSimilarityOfUserInputAndRandomWord() {
 
 bool Hangman::gameIsNotOver() {
 
-
   if (score == 3) {
     return false;
   }
@@ -256,4 +246,15 @@ void Hangman::updateLetterInUserInputOnGuessedLetters() {
       }
   }
 
+}
+
+void Hangman::displayOutputForWhenGameisOver() {
+  clearScreen();
+  if (score == 3) {
+    // write this better
+    cout << "You did not find the missing letter" << endl;
+  }
+  if (guessedLetters == randomWord) {
+      cout << "You found the correct word" << endl;
+  }
 }
