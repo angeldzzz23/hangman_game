@@ -13,13 +13,12 @@ void randomFunction();
 
 int main(void) {
 // Create an API for WORDS
-// you want your words to not be so long
-// get them from an API
-// Hold them in a vector
 
-Word wordd;
-string word;
-wordd.getARandomWord();
+Hangman game;
+
+// Word wordd;
+// string word;
+// wordd.getARandomWord();
 
 
   return 0;

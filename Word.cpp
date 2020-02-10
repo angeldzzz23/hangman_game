@@ -1,18 +1,20 @@
 #include "Word.h"
 
+// initializes word
 void Word::getARandomWord() {
   string w; // random word
 
   // getting random word
   const int totalNumberOfWordsOnTextFile = 49;
   int randomIndex = rand() % totalNumberOfWordsOnTextFile + 0;
-  w = words.at(randomIndex)
+  word = words.at(randomIndex);
 }
 
 Word::Word() {
   srand ((unsigned)time(NULL));
   rand(); rand(); rand();
-initializeWordsFromFileIntoVector();
+  initializeWordsFromFileIntoVector();
+  getARandomWord();
 }
 
 void Word::initializeWordsFromFileIntoVector() {

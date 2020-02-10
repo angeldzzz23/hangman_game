@@ -9,6 +9,13 @@ Hangman::Hangman(string randomWord) {
   this->score = 0;
   this->wordhasNotBeenFound = true;
 }
+Hangman::Hangman() {
+  word.getARandomWord();
+  this->randomWord = this->word.word;
+  cout << randomWord << endl;
+  this->score = 0;
+  this->wordhasNotBeenFound = true;
+}
 
 // Finish later
 void Hangman::printInstructions() {
