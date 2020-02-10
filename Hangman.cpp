@@ -1,6 +1,3 @@
-// TODO:
-//
-// This class should throw an error if the randomWord contains spaces
 #include "Hangman.h"
 #include <iomanip>
 #include <ctype.h>
@@ -93,11 +90,13 @@ void Hangman:: startGame() {
   do {
     clearScreen();
     printGuessedLetters();
+    cout << "Total tries left: " << 3 - score << endl;
     cout << endl;
     getCorrectUserInput();
     DoAction();
 
   } while(gameIsNotOver());
+
   // display if user won or lost
   displayOutputForWhenGameisOver();
 
@@ -150,14 +149,13 @@ bool Hangman::isAWholeWord() {
   return (userInput.length() > 1) ? true : false;
 }
 
-// makes
+//
 void Hangman::resetGuessedLetters() {
   guessedLetters.clear();
   for (int i = 0; i < randomWord.length(); i++) {
     guessedLetters.append("_");
   }
 }
-
 
 void Hangman::printGuessedLetters() {
   for (int i = 0; i < guessedLetters.length();i++) {
@@ -166,7 +164,7 @@ void Hangman::printGuessedLetters() {
   cout << endl;
 }
 
-// Check if the user Entered
+
 void Hangman::DoAction() {
 if (isAWholeWord()) // UserInput is a whole word
 {
@@ -183,27 +181,23 @@ if (isAWholeWord()) // UserInput is a whole word
     updateLetterInUserInputOnGuessedLetters();
     // checkTheLengh of the word
 
-
   } else {
     // if it is not, then update score
     score += 1;
   }
-
 }
 
 }
 
 void Hangman::changeScoreBasedOnTheSimilarityOfUserInputAndRandomWord() {
-  if (userInput.length() != randomWord.length()) { score += 1; return;}
+  if (userInput.length() != randomWord.length()) { score += 3; return;}
 
-  // loops to check if both words are the same
-  for (int i = 0; i < userInput.length(); i++)
-  {
-    if (userInput[i] != randomWord[i]) {
-      score += 1;
-      return;
-    }
+  // checks if userInput and random word are the same
+  if (randomWord != userInput) {
+    score += 3;
+    return;
   }
+
   // if you make it down here, it means that both words are correct
   wordhasNotBeenFound = false;
 
@@ -252,9 +246,12 @@ void Hangman::displayOutputForWhenGameisOver() {
   clearScreen();
   if (score == 3) {
     // write this better
-    cout << "You did not find the missing letter" << endl;
+    cout << "You ran out of tries." << endl;
+    cout << "the correct word is: " << randomWord << endl;
   }
+
   if (guessedLetters == randomWord) {
-      cout << "You found the correct word" << endl;
+      cout << "You found the correct word: " << randomWord << endl;
   }
+
 }
