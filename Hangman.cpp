@@ -285,6 +285,7 @@ void Hangman::updateLetterInUserInputOnGuessedLetters() {
 
 }
 
+
 void Hangman::displayOutputForWhenGameisOver() {
   clearScreen();
   if (score == 3) {
