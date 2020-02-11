@@ -9,6 +9,7 @@ Hangman::Hangman(string randomWord) {
   this->score = 0;
   this->wordhasNotBeenFound = true;
 }
+
 Hangman::Hangman() {
   word.getARandomWord();
   this->randomWord = this->word.word;
@@ -88,9 +89,14 @@ bool Hangman::userDidSkipInstruction() {
 // Starts a new hangman game
 void Hangman:: startGame() {
 
-  printInstructions();
+  static int timesPlayed = 0;
+
   clearScreen();
+  word.getARandomWord();
+  randomWord = word.word;
+  cout << randomWord << endl;
   resetGuessedLetters();
+
     // do while - loop
     // keeps on asking the user for input till the user
     // has either won or lost
@@ -99,18 +105,17 @@ void Hangman:: startGame() {
     printGuessedLetters();
     cout << "Total tries left: " << 3 - score << endl;
     cout << endl;
+
+    // Get correct input from user
     getCorrectUserInput();
     DoAction();
-
+    clearScreen();
   } while(gameIsNotOver());
-
   // display if user won or lost
   displayOutputForWhenGameisOver();
 
-  // ask if they want to play again
-  // cout << "Would you like to play again or quit?" << endl;
-  // cout << "enter q to quit" << endl;
-  // cout << "Enter p to play again" << endl;
+  // increment times timesPlayed
+  timesPlayed++;
 }
 
 // code made by Wardah
@@ -122,7 +127,9 @@ void Hangman::getCorrectUserInput() {
   int counter = 0;
   do {
     cout << "Enter a letter or a word" << endl;
-    getline(cin, input);
+    cin >> input;
+
+    // getline(cin, input);
 
     // check if it is empty
     if (input.length() == 0) { continue; }
@@ -140,6 +147,32 @@ void Hangman::getCorrectUserInput() {
 
 }
 
+  string Hangman::getCorrectUserInput1() {
+    string input;
+    int counter = 0;
+    do {
+      cout << "Enter a letter or a word" << endl;
+      getline(cin, input);
+
+      // check if it is empty
+      if (input.length() == 0) { continue; }
+
+      // makes sure that all input is filled with alphabets
+      if (!userInputIsAllLetters(input)) {continue;}
+
+      // if it makes it down here it means that the userInput is correct
+      counter = 1;
+
+    }while (counter == 0);
+
+    // initialize userInput with input
+
+    return input;
+
+
+  }
+
+
 // Checking that the user Entered an array of letters
 // not numbers should be accepted
 bool Hangman::userInputIsAllLetters(string _userInput) {
@@ -156,12 +189,16 @@ bool Hangman::isAWholeWord() {
   return (userInput.length() > 1) ? true : false;
 }
 
-//
+
 void Hangman::resetGuessedLetters() {
   guessedLetters.clear();
+  userInput.clear();
+
+  score = 0;
   for (int i = 0; i < randomWord.length(); i++) {
     guessedLetters.append("_");
   }
+
 }
 
 void Hangman::printGuessedLetters() {
@@ -170,7 +207,6 @@ void Hangman::printGuessedLetters() {
   }
   cout << endl;
 }
-
 
 void Hangman::DoAction() {
 if (isAWholeWord()) // UserInput is a whole word

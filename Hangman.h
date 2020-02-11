@@ -38,6 +38,7 @@ private:
   bool gameIsNotOver();
   void updateLetterInUserInputOnGuessedLetters();
   void displayOutputForWhenGameisOver();
+  string getCorrectUserInput1();
 
 };
 

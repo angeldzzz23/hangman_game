@@ -11,15 +11,24 @@ const int WORDS_SIZE = 49;
 
 void randomFunction();
 
+int number;
+
 int main(void) {
-// Create an API for WORDS
+    Hangman game;
+    int input;
+  do {
+    game.startGame();
+    cout << "enter 3 to quit" << endl;
+    cout << "Enter 1 to continue" << endl; 
+    cin >> input;
 
-Hangman game;
+    if (input == 3) {
+      break;
+    } else if (input == 1) {
+      continue;
+    }
 
-// Word wordd;
-// string word;
-// wordd.getARandomWord();
-
+  } while (true);
 
   return 0;
 }

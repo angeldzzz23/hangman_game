@@ -14,7 +14,7 @@ Word::Word() {
   srand ((unsigned)time(NULL));
   rand(); rand(); rand();
   initializeWordsFromFileIntoVector();
-  getARandomWord();
+  // getARandomWord();
 }
 
 void Word::initializeWordsFromFileIntoVector() {
