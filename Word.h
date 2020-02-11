@@ -11,9 +11,9 @@ using namespace std;
 class Word {
 
 public:
-  Word();
-  string word;
-  void getARandomWord();
+  Word(); // initializer
+  string word; // actual random word
+  void getARandomWord(); //
 private:
   vector<string> words;
   void initializeWordsFromFileIntoVector();

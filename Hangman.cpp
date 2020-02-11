@@ -5,7 +5,7 @@ using namespace std;
 
 // initializer with random word
 Hangman::Hangman(string randomWord) {
-  this->randomWord = randomWord;
+  this->randomWord = randomWord; // Check for words that have a space
   this->score = 0;
   this->wordhasNotBeenFound = true;
 }
@@ -88,7 +88,7 @@ bool Hangman::userDidSkipInstruction() {
 
 // Starts a new hangman game
 void Hangman:: startGame() {
-
+  printInstructions();
   static int timesPlayed = 0;
 
   clearScreen();
@@ -147,30 +147,6 @@ void Hangman::getCorrectUserInput() {
 
 }
 
-  string Hangman::getCorrectUserInput1() {
-    string input;
-    int counter = 0;
-    do {
-      cout << "Enter a letter or a word" << endl;
-      getline(cin, input);
-
-      // check if it is empty
-      if (input.length() == 0) { continue; }
-
-      // makes sure that all input is filled with alphabets
-      if (!userInputIsAllLetters(input)) {continue;}
-
-      // if it makes it down here it means that the userInput is correct
-      counter = 1;
-
-    }while (counter == 0);
-
-    // initialize userInput with input
-
-    return input;
-
-
-  }
 
 
 // Checking that the user Entered an array of letters
@@ -282,9 +258,7 @@ void Hangman::updateLetterInUserInputOnGuessedLetters() {
         guessedLetters[i] = userInput[0];
       }
   }
-
 }
-
 
 void Hangman::displayOutputForWhenGameisOver() {
   clearScreen();
